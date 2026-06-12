@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bondár Reni</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
+  <script src="https://challenges.cloudflare.com/turnstile/v0/api.js?onload=onloadTurnstileCallback&render=explicit" defer></script>
+  <style>
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --ink: #1a1a1a;
+      --ink-light: #6b6b6b;
+      --paper: #fafaf8;
+      --accent: #c8a96e;
+      --border: #e8e5e0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background: var(--paper);
+      color: var(--ink);
+      font-family: 'Inter', sans-serif;
+      font-weight: 300;
+      line-height: 1.7;
+      min-height: 100vh;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      padding: 1.5rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(250, 250, 248, 0.92);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.2rem;
+      font-weight: 400;
+      letter-spacing: 0.08em;
+      text-decoration: none;
+      color: var(--ink);
+    }
+
+    .nav-link {
+      font-size: 0.8rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      text-decoration: none;
+      color: var(--ink-light);
+      transition: color 0.2s;
+    }
+
+    .nav-link:hover {
+      color: var(--ink);
+    }
+
+    /* HERO */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 8rem 2rem 4rem;
+    }
+
+    .hero-eyebrow {
+      font-size: 0.72rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 1.5rem;
+    }
+
+    .hero-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(3.5rem, 10vw, 7rem);
+      font-weight: 300;
+      line-height: 1.05;
+      letter-spacing: -0.01em;
+      margin-bottom: 1.5rem;
+    }
+
+    .hero-name em {
+      font-style: italic;
+      font-weight: 300;
+    }
+
+    .hero-tagline {
+      font-size: 1rem;
+      color: var(--ink-light);
+      max-width: 38ch;
+      margin: 0 auto 3rem;
+      line-height: 1.8;
+    }
+
+    .hero-divider {
+      width: 40px;
+      height: 1px;
+      background: var(--accent);
+      margin: 0 auto 3rem;
+    }
+
+    /* CTA button */
+    .btn-primary {
+      display: inline-block;
+      padding: 0.9rem 2.5rem;
+      background: var(--ink);
+      color: var(--paper);
+      text-decoration: none;
+      font-size: 0.78rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      transition: background 0.25s, transform 0.2s;
+    }
+
+    .btn-primary:hover {
+      background: #333;
+      transform: translateY(-1px);
+    }
+
+    /* ABOUT */
+    .about {
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 8rem 2rem;
+      text-align: center;
+    }
+
+    .section-label {
+      font-size: 0.68rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 2.5rem;
+    }
+
+    .about-text {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1.4rem, 3vw, 1.9rem);
+      font-weight: 300;
+      line-height: 1.55;
+      color: var(--ink);
+    }
+
+    .about-text em {
+      font-style: italic;
+      color: var(--accent);
+    }
+
+    /* PROJECTS */
+    .projects {
+      border-top: 1px solid var(--border);
+      padding: 8rem 2rem;
+      text-align: center;
+    }
+
+    .projects-inner {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .projects h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2rem, 5vw, 3rem);
+      font-weight: 300;
+      margin-bottom: 1rem;
+    }
+
+    .projects-sub {
+      font-size: 0.9rem;
+      color: var(--ink-light);
+      margin-bottom: 4rem;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 2px;
+    }
+
+    .card {
+      background: #fff;
+      padding: 2.5rem 2rem;
+      text-align: left;
+      border: 1px solid var(--border);
+    }
+
+    .card-icon {
+      font-size: 1.6rem;
+      margin-bottom: 1.2rem;
+    }
+
+    .card-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.25rem;
+      font-weight: 400;
+      margin-bottom: 0.6rem;
+    }
+
+    .card-desc {
+      font-size: 0.82rem;
+      color: var(--ink-light);
+      line-height: 1.75;
+    }
+
+    /* NEWSLETTER */
+    .newsletter {
+      background: var(--ink);
+      color: var(--paper);
+      padding: 8rem 2rem;
+      text-align: center;
+    }
+
+    .newsletter-inner {
+      max-width: 520px;
+      margin: 0 auto;
+    }
+
+    .newsletter .section-label {
+      color: var(--accent);
+      margin-bottom: 2rem;
+    }
+
+    .newsletter h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2rem, 5vw, 3rem);
+      font-weight: 300;
+      line-height: 1.2;
+      margin-bottom: 1rem;
+    }
+
+    .newsletter-sub {
+      font-size: 0.88rem;
+      color: rgba(250,250,248,0.6);
+      margin-bottom: 3rem;
+      line-height: 1.8;
+    }
+
+    #signupForm {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    #signupForm .formInput {
+      width: 100%;
+      padding: 1rem 1.2rem;
+      background: rgba(255,255,255,0.07);
+      border: 1px solid rgba(255,255,255,0.2);
+      color: var(--paper);
+      font-family: 'Inter', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 300;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    #signupForm .formInput::placeholder {
+      color: rgba(250,250,248,0.4);
+    }
+
+    #signupForm .formInput:focus {
+      border-color: var(--accent);
+    }
+
+    #submitBtn, #loadingBtn {
+      width: 100%;
+      padding: 1rem;
+      background: var(--accent);
+      color: var(--ink);
+      border: none;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.78rem;
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: opacity 0.2s, transform 0.2s;
+      margin-top: 0.25rem;
+    }
+
+    #submitBtn:hover {
+      opacity: 0.88;
+      transform: translateY(-1px);
+    }
+
+    #loadingBtn {
+      display: none;
+      opacity: 0.6;
+      cursor: default;
+    }
+
+    #backBtn {
+      display: none;
+      width: 100%;
+      padding: 0.9rem;
+      background: transparent;
+      color: var(--paper);
+      border: 1px solid rgba(255,255,255,0.3);
+      font-family: 'Inter', sans-serif;
+      font-size: 0.78rem;
+      font-weight: 400;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      cursor: pointer;
+      margin-top: 0.5rem;
+      transition: border-color 0.2s;
+    }
+
+    #backBtn:hover {
+      border-color: rgba(255,255,255,0.6);
+    }
+
+    #captchaContainer {
+      display: none;
+      justify-content: center;
+      width: 100%;
+    }
+
+    .signup-note {
+      font-size: 0.72rem;
+      color: rgba(250,250,248,0.35);
+      margin-top: 1rem;
+    }
+
+    #successMessageText {
+      display: none;
+      padding: 2rem;
+      border: 1px solid var(--accent);
+      color: var(--accent);
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.3rem;
+      font-style: italic;
+    }
+
+    #errorMessageText {
+      display: none;
+      padding: 1.5rem;
+      border: 1px solid rgba(220, 100, 80, 0.5);
+      color: rgba(220, 150, 130, 1);
+      font-size: 0.85rem;
+      line-height: 1.6;
+    }
+
+    /* SOCIAL / FOOTER */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 3rem 2rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1.5rem;
+      text-align: center;
+    }
+
+    .social-links {
+      display: flex;
+      gap: 2rem;
+    }
+
+    .social-link {
+      font-size: 0.72rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      text-decoration: none;
+      color: var(--ink-light);
+      transition: color 0.2s;
+    }
+
+    .social-link:hover {
+      color: var(--ink);
+    }
+
+    .footer-copy {
+      font-size: 0.72rem;
+      color: var(--border);
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 600px) {
+      nav {
+        padding: 1.2rem 1.5rem;
+      }
+
+      .about, .projects, .newsletter, footer {
+        padding-left: 1.5rem;
+        padding-right: 1.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="#" class="nav-name">Bondár Reni</a>
+    <a href="#hirlevel" class="nav-link">Feliratkozás</a>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <p class="hero-eyebrow">Szerző · Tartalomkészítő</p>
+    <h1 class="hero-name">Bondár<br><em>Reni</em></h1>
+    <div class="hero-divider"></div>
+    <p class="hero-tagline">Gyerekeknek szóló mesék, könyvek és kreatív projektek — ahol a képzelet nem ismer határokat.</p>
+    <a href="#hirlevel" class="btn-primary">Iratkozz fel a hírlevélre</a>
+  </section>
+
+  <!-- ABOUT -->
+  <section class="about">
+    <p class="section-label">Rólam</p>
+    <p class="about-text">
+      Hiszek abban, hogy a <em>jó történetek</em> megváltoztatják,
+      ahogy a gyerekek a világot látják. Könyveimmel és projektjeimmel
+      olyan élményeket teremtek, amelyek maradandó nyomot hagynak.
+    </p>
+  </section>
+
+  <!-- PROJECTS -->
+  <section class="projects">
+    <div class="projects-inner">
+      <p class="section-label">Amivel foglalkozom</p>
+      <h2>Projektek &amp; alkotások</h2>
+      <p class="projects-sub">Könyvek, tartalmak és különleges együttműködések</p>
+      <div class="cards">
+        <div class="card">
+          <div class="card-icon">📖</div>
+          <h3 class="card-title">Gyerekkönyvek</h3>
+          <p class="card-desc">Mesélő könyvek kicsiknek és nagyoknak — élénk képzeletvilággal, értékes üzenetekkel.</p>
+        </div>
+        <div class="card">
+          <div class="card-icon">✨</div>
+          <h3 class="card-title">Különleges projektek</h3>
+          <p class="card-desc">Exkluzív kiadványok, interaktív tartalmak és meglepetés kollaborációk.</p>
+        </div>
+        <div class="card">
+          <div class="card-icon">🎬</div>
+          <h3 class="card-title">TikTok</h3>
+          <p class="card-desc">Napi adag kreativitás, kulisszák mögötti pillanatok és közösségi élmények.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- NEWSLETTER -->
+  <section class="newsletter" id="hirlevel">
+    <div class="newsletter-inner">
+      <p class="section-label">Hírlevél</p>
+      <h2>Légy az első,<br>aki megtudja</h2>
+      <p class="newsletter-sub">
+        Új könyvek, exkluzív tartalmak és különleges bejelentések —
+        egyenesen a postaládádba, mielőtt mindenki más megtudja.
+      </p>
+
+      <form id="signupForm" action="https://api.bluefox.email/v1/signup-forms/6a2c64c64dbba21160210763" method="POST">
+        <input class="formInput" type="email" name="email" placeholder="E-mail címed" required />
+        <div id="captchaContainer">
+          <div id="turnstileWidget"></div>
+        </div>
+        <button id="submitBtn" type="submit">Feliratkozom</button>
+        <button id="loadingBtn" type="button">Kérlek várj...</button>
+      </form>
+
+      <p id="successMessageText">Köszönöm! Hamarosan hallasz rólam. ✦</p>
+      <p id="errorMessageText"></p>
+      <button id="backBtn" type="button">Vissza</button>
+
+      <p class="signup-note">Adataidat biztonságban kezeljük. Leiratkozhatsz bármikor.</p>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="social-links">
+      <a href="https://www.tiktok.com/@bondarreni" target="_blank" rel="noopener" class="social-link">TikTok</a>
+    </div>
+    <p class="footer-copy">&copy; 2026 Bondár Reni</p>
+  </footer>
+
+  <script>
+    let turnstileToken = null
+    let turnstileWidgetId = null
+    let pendingSubmit = false
+
+    function onloadTurnstileCallback() {
+      const container = document.getElementById('turnstileWidget')
+      if (container) {
+        turnstileWidgetId = turnstile.render(container, {
+          sitekey: '0x4AAAAAADjl8zPCcTc3eqv7',
+          theme: 'dark',
+          size: 'normal',
+          appearance: 'execute',
+          callback: function(token) {
+            turnstileToken = token
+            if (pendingSubmit) {
+              pendingSubmit = false
+              localStorage.removeItem('timestamp')
+              document.getElementById('signupForm').dispatchEvent(new Event('submit'))
+            }
+          },
+          'expired-callback': function() { turnstileToken = null; pendingSubmit = false },
+          'error-callback': function() { turnstileToken = null; pendingSubmit = false }
+        })
+      }
+    }
+
+    function checkClickOutLimit({ errorMessageText, inputs, submitButton, backButton }) {
+      const timestamp = Date.now()
+      const previousTimestamp = localStorage.getItem('timestamp')
+      if (previousTimestamp && Number(previousTimestamp) + 5000 > timestamp) {
+        document.getElementById('captchaContainer').style.display = 'none'
+        errorMessageText.innerText = 'Túl sok kísérlet, kérlek próbáld újra egy kis idő múlva.'
+        inputs.forEach(input => { if (input) input.style.display = 'none' })
+        submitButton.style.display = 'none'
+        errorMessageText.style.display = 'block'
+        backButton.style.display = 'block'
+        return true
+      }
+    }
+
+    function submitHandler(event) {
+      event.preventDefault()
+      const form = document.getElementById('signupForm')
+      const inputs = document.querySelectorAll('#signupForm .formInput')
+      const successMessageText = document.getElementById('successMessageText')
+      const errorMessageText = document.getElementById('errorMessageText')
+      const submitButton = document.getElementById('submitBtn')
+      const loadingButton = document.getElementById('loadingBtn')
+      const backButton = document.getElementById('backBtn')
+
+      if (checkClickOutLimit({ errorMessageText, inputs, submitButton, backButton })) return
+
+      localStorage.setItem('timestamp', Date.now())
+      submitButton.style.display = 'none'
+      loadingButton.style.display = 'block'
+
+      let data = {}
+      inputs.forEach(input => {
+        data[input.name] = input.type === 'checkbox' ? input.checked : input.value
+      })
+      data.turnstileToken = turnstileToken
+
+      if (!turnstileToken) {
+        pendingSubmit = true
+        submitButton.style.display = 'block'
+        loadingButton.style.display = 'none'
+        document.getElementById('captchaContainer').style.display = 'flex'
+        if (typeof turnstile !== 'undefined' && turnstileWidgetId !== null) {
+          turnstile.execute(turnstileWidgetId)
+        }
+        return
+      }
+
+      fetch(event.target.action, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
+      })
+        .then(res => [res.ok, res.json()])
+        .then(([ok, dataPromise]) => {
+          dataPromise.then(payload => {
+            if (ok) {
+              if (payload.result && payload.result.redirectTo) {
+                window.location.href = payload.result.redirectTo
+              } else {
+                successMessageText.style.display = 'block'
+              }
+              form.reset()
+            } else {
+              errorMessageText.style.display = 'block'
+              if (payload.status === 401) {
+                errorMessageText.innerText = 'Domain not whitelisted. Please contact support.'
+              } else {
+                errorMessageText.innerText = (payload.error && payload.error.message) || 'Hiba történt.'
+              }
+            }
+          })
+        })
+        .catch(error => {
+          if (error.message === 'Failed to fetch') {
+            checkClickOutLimit({ errorMessageText, inputs, submitButton, backButton })
+            return
+          }
+          errorMessageText.style.display = 'block'
+          errorMessageText.innerText = error.message || 'Váratlan hiba történt.'
+          localStorage.removeItem('timestamp')
+        })
+        .finally(() => {
+          document.getElementById('captchaContainer').style.display = 'none'
+          if (typeof turnstile !== 'undefined' && turnstileWidgetId !== null) {
+            turnstile.reset(turnstileWidgetId)
+            turnstileToken = null
+          }
+          inputs.forEach(input => { if (input) input.style.display = 'none' })
+          loadingButton.style.display = 'none'
+          backButton.style.display = 'block'
+        })
+    }
+
+    function resetFormHandler() {
+      const inputs = document.querySelectorAll('#signupForm .formInput')
+      const successMessageText = document.getElementById('successMessageText')
+      const errorMessageText = document.getElementById('errorMessageText')
+      const submitButton = document.getElementById('submitBtn')
+      const backButton = document.getElementById('backBtn')
+
+      if (typeof turnstile !== 'undefined' && turnstileWidgetId !== null) {
+        turnstile.reset(turnstileWidgetId)
+        turnstileToken = null
+      }
+      successMessageText.style.display = 'none'
+      errorMessageText.style.display = 'none'
+      errorMessageText.innerText = 'Hoppá! Valami nem sikerült, kérlek próbáld újra.'
+      backButton.style.display = 'none'
+      inputs.forEach(input => { if (input) input.style.display = 'block' })
+      submitButton.style.display = 'block'
+    }
+
+    const signupForm = document.getElementById('signupForm')
+    const backButton = document.getElementById('backBtn')
+
+    if (!signupForm.classList.contains('handlers-added')) {
+      signupForm.addEventListener('submit', submitHandler)
+      signupForm.classList.add('handlers-added')
+    }
+    if (!backButton.classList.contains('handlers-added')) {
+      backButton.addEventListener('click', resetFormHandler)
+      backButton.classList.add('handlers-added')
+    }
+  </script>
+
+</body>
+</html>
