@@ -13,7 +13,6 @@
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
-
     gtag('config', 'G-ZJ1Q9NGRDW');
   </script>
   <script src="https://challenges.cloudflare.com/turnstile/v0/api.js?onload=onloadTurnstileCallback&render=explicit" defer></script>
@@ -86,12 +85,29 @@
     /* HERO */
     .hero {
       min-height: 100vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      padding-top: 73px;
+    }
+
+    .hero-left {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #f0ede8;
+      padding: 4rem 3rem;
+      border-right: 1px solid var(--border);
+    }
+
+    .hero-left .tiktok-embed {
+      margin: 0 !important;
+    }
+
+    .hero-right {
       display: flex;
       flex-direction: column;
       justify-content: center;
-      align-items: center;
-      text-align: center;
-      padding: 8rem 2rem 4rem;
+      padding: 4rem 3rem;
     }
 
     .hero-eyebrow {
@@ -102,51 +118,155 @@
       margin-bottom: 1.5rem;
     }
 
-    .hero-name {
+    .hero-title {
       font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(3.5rem, 10vw, 7rem);
+      font-size: clamp(2.4rem, 3.5vw, 3.8rem);
       font-weight: 300;
-      line-height: 1.05;
+      line-height: 1.1;
       letter-spacing: -0.01em;
       margin-bottom: 1.5rem;
     }
 
-    .hero-name em {
+    .hero-title em {
       font-style: italic;
       font-weight: 300;
-    }
-
-    .hero-tagline {
-      font-size: 1rem;
-      color: var(--ink-light);
-      max-width: 38ch;
-      margin: 0 auto 3rem;
-      line-height: 1.8;
     }
 
     .hero-divider {
       width: 40px;
       height: 1px;
       background: var(--accent);
-      margin: 0 auto 3rem;
+      margin-bottom: 1.5rem;
     }
 
-    /* CTA button */
-    .btn-primary {
-      display: inline-block;
-      padding: 0.9rem 2.5rem;
+    .hero-desc {
+      font-size: 0.9rem;
+      color: var(--ink-light);
+      line-height: 1.85;
+      max-width: 44ch;
+      margin-bottom: 2.5rem;
+    }
+
+    /* FORM */
+    .hero-form-wrap {
+      max-width: 380px;
+    }
+
+    .hero-form-label {
+      display: block;
+      font-size: 0.67rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--ink-light);
+      margin-bottom: 1rem;
+    }
+
+    #signupForm {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    #signupForm .formInput {
+      width: 100%;
+      padding: 0.9rem 1.1rem;
+      background: #fff;
+      border: 1px solid var(--border);
+      color: var(--ink);
+      font-family: 'Inter', sans-serif;
+      font-size: 0.88rem;
+      font-weight: 300;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    #signupForm .formInput::placeholder {
+      color: var(--ink-light);
+      opacity: 0.55;
+    }
+
+    #signupForm .formInput:focus {
+      border-color: var(--accent);
+    }
+
+    #submitBtn, #loadingBtn {
+      width: 100%;
+      padding: 0.9rem;
       background: var(--ink);
       color: var(--paper);
-      text-decoration: none;
+      border: none;
+      font-family: 'Inter', sans-serif;
       font-size: 0.78rem;
+      font-weight: 500;
       letter-spacing: 0.18em;
       text-transform: uppercase;
-      transition: background 0.25s, transform 0.2s;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.2s;
+      margin-top: 0.25rem;
     }
 
-    .btn-primary:hover {
+    #submitBtn:hover {
       background: #333;
       transform: translateY(-1px);
+    }
+
+    #loadingBtn {
+      display: none;
+      opacity: 0.5;
+      cursor: default;
+    }
+
+    #backBtn {
+      display: none;
+      width: 100%;
+      padding: 0.9rem;
+      background: transparent;
+      color: var(--ink);
+      border: 1px solid var(--border);
+      font-family: 'Inter', sans-serif;
+      font-size: 0.78rem;
+      font-weight: 400;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      cursor: pointer;
+      margin-top: 0.5rem;
+      transition: border-color 0.2s;
+    }
+
+    #backBtn:hover {
+      border-color: var(--ink);
+    }
+
+    #captchaContainer {
+      display: none;
+      justify-content: center;
+      width: 100%;
+    }
+
+    .signup-note {
+      font-size: 0.7rem;
+      color: var(--ink-light);
+      opacity: 0.5;
+      margin-top: 1rem;
+    }
+
+    #successMessageText {
+      display: none;
+      padding: 1.5rem;
+      border: 1px solid var(--accent);
+      color: var(--accent);
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.2rem;
+      font-style: italic;
+    }
+
+    #errorMessageText {
+      display: none;
+      padding: 1.2rem;
+      border: 1px solid rgba(220, 100, 80, 0.4);
+      color: rgba(180, 60, 40, 1);
+      font-size: 0.82rem;
+      line-height: 1.6;
     }
 
     /* ABOUT */
@@ -234,146 +354,7 @@
       line-height: 1.75;
     }
 
-    /* NEWSLETTER */
-    .newsletter {
-      background: var(--ink);
-      color: var(--paper);
-      padding: 8rem 2rem;
-      text-align: center;
-    }
-
-    .newsletter-inner {
-      max-width: 520px;
-      margin: 0 auto;
-    }
-
-    .newsletter .section-label {
-      color: var(--accent);
-      margin-bottom: 2rem;
-    }
-
-    .newsletter h2 {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(2rem, 5vw, 3rem);
-      font-weight: 300;
-      line-height: 1.2;
-      margin-bottom: 1rem;
-    }
-
-    .newsletter-sub {
-      font-size: 0.88rem;
-      color: rgba(250,250,248,0.6);
-      margin-bottom: 3rem;
-      line-height: 1.8;
-    }
-
-    #signupForm {
-      display: flex;
-      flex-direction: column;
-      gap: 0.75rem;
-    }
-
-    #signupForm .formInput {
-      width: 100%;
-      padding: 1rem 1.2rem;
-      background: rgba(255,255,255,0.07);
-      border: 1px solid rgba(255,255,255,0.2);
-      color: var(--paper);
-      font-family: 'Inter', sans-serif;
-      font-size: 0.9rem;
-      font-weight: 300;
-      outline: none;
-      transition: border-color 0.2s;
-    }
-
-    #signupForm .formInput::placeholder {
-      color: rgba(250,250,248,0.4);
-    }
-
-    #signupForm .formInput:focus {
-      border-color: var(--accent);
-    }
-
-    #submitBtn, #loadingBtn {
-      width: 100%;
-      padding: 1rem;
-      background: var(--accent);
-      color: var(--ink);
-      border: none;
-      font-family: 'Inter', sans-serif;
-      font-size: 0.78rem;
-      font-weight: 500;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      cursor: pointer;
-      transition: opacity 0.2s, transform 0.2s;
-      margin-top: 0.25rem;
-    }
-
-    #submitBtn:hover {
-      opacity: 0.88;
-      transform: translateY(-1px);
-    }
-
-    #loadingBtn {
-      display: none;
-      opacity: 0.6;
-      cursor: default;
-    }
-
-    #backBtn {
-      display: none;
-      width: 100%;
-      padding: 0.9rem;
-      background: transparent;
-      color: var(--paper);
-      border: 1px solid rgba(255,255,255,0.3);
-      font-family: 'Inter', sans-serif;
-      font-size: 0.78rem;
-      font-weight: 400;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      cursor: pointer;
-      margin-top: 0.5rem;
-      transition: border-color 0.2s;
-    }
-
-    #backBtn:hover {
-      border-color: rgba(255,255,255,0.6);
-    }
-
-    #captchaContainer {
-      display: none;
-      justify-content: center;
-      width: 100%;
-    }
-
-    .signup-note {
-      font-size: 0.72rem;
-      color: rgba(250,250,248,0.35);
-      margin-top: 1rem;
-    }
-
-    #successMessageText {
-      display: none;
-      padding: 2rem;
-      border: 1px solid var(--accent);
-      color: var(--accent);
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.3rem;
-      font-style: italic;
-    }
-
-    #errorMessageText {
-      display: none;
-      padding: 1.5rem;
-      border: 1px solid rgba(220, 100, 80, 0.5);
-      color: rgba(220, 150, 130, 1);
-      font-size: 0.85rem;
-      line-height: 1.6;
-    }
-
-    /* SOCIAL / FOOTER */
+    /* FOOTER */
     footer {
       border-top: 1px solid var(--border);
       padding: 3rem 2rem;
@@ -408,12 +389,27 @@
     }
 
     /* RESPONSIVE */
-    @media (max-width: 600px) {
-      nav {
-        padding: 1.2rem 1.5rem;
+    @media (max-width: 768px) {
+      .hero {
+        grid-template-columns: 1fr;
+        min-height: auto;
       }
 
-      .about, .projects, .newsletter, footer {
+      .hero-left {
+        border-right: none;
+        border-bottom: 1px solid var(--border);
+        padding: 3rem 1.5rem;
+      }
+
+      .hero-right {
+        padding: 3rem 1.5rem;
+      }
+
+      .hero-form-wrap {
+        max-width: 100%;
+      }
+
+      .about, .projects, footer {
         padding-left: 1.5rem;
         padding-right: 1.5rem;
       }
@@ -425,16 +421,53 @@
   <!-- NAV -->
   <nav>
     <a href="#" class="nav-name">Bondár Reni</a>
-    <a href="#hirlevel" class="nav-link">Feliratkozás</a>
+    <a href="#feliratkozas" class="nav-link">Feliratkozás</a>
   </nav>
 
   <!-- HERO -->
   <section class="hero">
-    <p class="hero-eyebrow">Szerző · Tartalomkészítő</p>
-    <h1 class="hero-name">Bondár<br><em>Reni</em></h1>
-    <div class="hero-divider"></div>
-    <p class="hero-tagline">Gyerekeknek szóló mesék, könyvek és kreatív projektek — ahol a képzelet nem ismer határokat.</p>
-    <a href="#hirlevel" class="btn-primary">Iratkozz fel a hírlevélre</a>
+    <div class="hero-left">
+      <blockquote class="tiktok-embed" cite="https://www.tiktok.com/@bondarreni/video/7650158337044090134" data-video-id="7650158337044090134" style="max-width: 605px;min-width: 325px;">
+        <section>
+          <a target="_blank" title="@bondarreni" href="https://www.tiktok.com/@bondarreni?refer=embed">@bondarreni</a>
+          Beszélő mesekönyv ♥️📖 Készítettem egy mesekönyvet, ami a nagymamám hangján olvassa fel a gyerekeimnek az esti mesét 🥰 Imádtam ezt a projektet, és nagyon jól esett, hogy ennyien írtatok és követtétek végig az elkészítését ♥️ Rengeteg ötletem van még, úgyhogy ha szeretnétek hasonló DIY projekteket látni tőlem, maradjatok velem! 😍♥️ Ha pedig bármi kérdésetek van az elkészítésével, az elektronikával, az alkatrészekkel vagy bármelyik részével kapcsolatban, nyugodtan írjatok 💌
+          <a title="momtok" target="_blank" href="https://www.tiktok.com/tag/momtok?refer=embed">#momtok</a>
+          <a title="digitalart" target="_blank" href="https://www.tiktok.com/tag/digitalart?refer=embed">#digitalart</a>
+          <a title="diy" target="_blank" href="https://www.tiktok.com/tag/diy?refer=embed">#diy</a>
+          <a title="diygift" target="_blank" href="https://www.tiktok.com/tag/diygift?refer=embed">#diygift</a>
+          <a title="electronics" target="_blank" href="https://www.tiktok.com/tag/electronics?refer=embed">#electronics</a>
+          <a target="_blank" title="♬ Shallow (Piano Version) - The Chillest" href="https://www.tiktok.com/music/Shallow-Piano-Version-6814427833687869441?refer=embed">♬ Shallow (Piano Version) - The Chillest</a>
+        </section>
+      </blockquote>
+      <script async src="https://www.tiktok.com/embed.js"></script>
+    </div>
+
+    <div class="hero-right" id="feliratkozas">
+      <p class="hero-eyebrow">Aktuális fő projekt</p>
+      <h1 class="hero-title">A könyv most<br><em>minden.</em></h1>
+      <div class="hero-divider"></div>
+      <p class="hero-desc">
+        Ez a mostani fő projektem — de a kulisszák mögött rengeteg más ötlet is van folyamatban. Iratkozz fel, hogy elsőként lásd a behind the scenes tartalmakat, és értesülj minden product updateről.
+      </p>
+
+      <div class="hero-form-wrap">
+        <span class="hero-form-label">Iratkozz fel ingyen</span>
+        <form id="signupForm" action="https://api.bluefox.email/v1/signup-forms/6a2c64c64dbba21160210763" method="POST">
+          <input class="formInput" type="email" name="email" placeholder="E-mail címed" required />
+          <div id="captchaContainer">
+            <div id="turnstileWidget"></div>
+          </div>
+          <button id="submitBtn" type="submit">Feliratkozom</button>
+          <button id="loadingBtn" type="button">Kérlek várj...</button>
+        </form>
+
+        <p id="successMessageText">Köszönöm! Hamarosan hallasz rólam. ✦</p>
+        <p id="errorMessageText"></p>
+        <button id="backBtn" type="button">Vissza</button>
+
+        <p class="signup-note">Adataidat biztonságban kezeljük. Leiratkozhatsz bármikor.</p>
+      </div>
+    </div>
   </section>
 
   <!-- ABOUT -->
@@ -473,33 +506,6 @@
     </div>
   </section>
 
-  <!-- NEWSLETTER -->
-  <section class="newsletter" id="hirlevel">
-    <div class="newsletter-inner">
-      <p class="section-label">Hírlevél</p>
-      <h2>Légy az első,<br>aki megtudja</h2>
-      <p class="newsletter-sub">
-        Új könyvek, exkluzív tartalmak és különleges bejelentések —
-        egyenesen a postaládádba, mielőtt mindenki más megtudja.
-      </p>
-
-      <form id="signupForm" action="https://api.bluefox.email/v1/signup-forms/6a2c64c64dbba21160210763" method="POST">
-        <input class="formInput" type="email" name="email" placeholder="E-mail címed" required />
-        <div id="captchaContainer">
-          <div id="turnstileWidget"></div>
-        </div>
-        <button id="submitBtn" type="submit">Feliratkozom</button>
-        <button id="loadingBtn" type="button">Kérlek várj...</button>
-      </form>
-
-      <p id="successMessageText">Köszönöm! Hamarosan hallasz rólam. ✦</p>
-      <p id="errorMessageText"></p>
-      <button id="backBtn" type="button">Vissza</button>
-
-      <p class="signup-note">Adataidat biztonságban kezeljük. Leiratkozhatsz bármikor.</p>
-    </div>
-  </section>
-
   <!-- FOOTER -->
   <footer>
     <div class="social-links">
@@ -518,7 +524,7 @@
       if (container) {
         turnstileWidgetId = turnstile.render(container, {
           sitekey: '0x4AAAAAADjl8zPCcTc3eqv7',
-          theme: 'dark',
+          theme: 'light',
           size: 'normal',
           appearance: 'execute',
           callback: function(token) {
