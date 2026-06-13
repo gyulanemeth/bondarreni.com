@@ -325,10 +325,48 @@
 
     /* ABOUT */
     .about {
-      max-width: 680px;
+      max-width: 1100px;
       margin: 0 auto;
       padding: 8rem 2rem;
-      text-align: center;
+    }
+
+    .about-inner {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 5rem;
+      align-items: center;
+    }
+
+    .about-content {
+      text-align: left;
+    }
+
+    .about-content .section-label {
+      text-align: left;
+    }
+
+    .about-content .about-text {
+      text-align: left;
+    }
+
+    .about-content .hero-divider {
+      margin: 2rem 0;
+    }
+
+    .about-content .about-tags {
+      justify-content: flex-start;
+    }
+
+    .about-photo {
+      width: 340px;
+      flex-shrink: 0;
+    }
+
+    .about-photo img {
+      width: 100%;
+      display: block;
+      object-fit: cover;
+      aspect-ratio: 3 / 4;
     }
 
     .section-label {
@@ -350,6 +388,37 @@
     .about-text em {
       font-style: italic;
       color: var(--accent);
+    }
+
+    .about-body {
+      font-size: 0.92rem;
+      color: var(--ink-light);
+      line-height: 1.9;
+      max-width: 58ch;
+      margin: 0 auto;
+      text-align: left;
+    }
+
+    .about-body p + p {
+      margin-top: 1.2rem;
+    }
+
+    .about-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      justify-content: center;
+      margin: 2.5rem auto 0;
+    }
+
+    .about-tag {
+      font-size: 0.68rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--ink-light);
+      border: 1px solid var(--border);
+      padding: 0.4rem 0.9rem;
+      background: #fff;
     }
 
     /* PROJECTS */
@@ -467,6 +536,20 @@
         padding-left: 1.5rem;
         padding-right: 1.5rem;
       }
+
+      .about-inner {
+        grid-template-columns: 1fr;
+        gap: 2.5rem;
+      }
+
+      .about-photo {
+        width: 100%;
+        order: -1;
+      }
+
+      .about-photo img {
+        aspect-ratio: 4 / 3;
+      }
     }
   </style>
 </head>
@@ -475,7 +558,7 @@
   <!-- NAV -->
   <nav>
     <a href="#" class="nav-name">Bondár Reni</a>
-    <a href="#feliratkozas" class="nav-link">Feliratkozás</a>
+    <a href="#rolam" class="nav-link">Rólam</a>
   </nav>
 
   <!-- HERO -->
@@ -518,13 +601,37 @@
   </section>
 
   <!-- ABOUT -->
-  <section class="about">
-    <p class="section-label">Rólam</p>
-    <p class="about-text">
-      Hiszek abban, hogy a <em>jó történetek</em> megváltoztatják,
-      ahogy a gyerekek a világot látják. Könyveimmel és projektjeimmel
-      olyan élményeket teremtek, amelyek maradandó nyomot hagynak.
-    </p>
+  <section class="about" id="rolam">
+    <div class="about-inner">
+      <div class="about-content">
+        <p class="section-label">Rólam</p>
+        <p class="about-text">
+          Programozó vagyok, két pici gyerek anyukája —<br>
+          és közben <em>rajzolok</em>, tervezek, alkotok.
+        </p>
+        <div class="hero-divider"></div>
+        <div class="about-body">
+          <p>
+            A kisfiúm 2,5 éves, a kislányom 1 éves. Nincs sok szabad időm — de amit van, azt kreatív projektekkel töltöm. Imádok digitálisan rajzolni, és egyre több ötletem van, amit szeretnék megvalósítani.
+          </p>
+          <p>
+            Elkezdtem TikTokon közzétenni a projektjeimet, és ott kaptam az első igazán fontos visszajelzést: sokan mondták, hogy ők is megcsinálnák, ha tudnák hogyan — mások azt, hogy érdemes lenne ezekből termékeket csinálni. Ebbe a fába vágtam a fejszémet.
+          </p>
+          <p>
+            Próbálok termékeket csinálni — remélem, tetszik mindenkinek. Ha feliratkozol, elsők között értesülsz, mikor jelenik meg valami új, mikor tudok custom projektet bevállalni, és lesznek olyan tartalmak is, ahol megmutatom, hogyan tudod te is elkészíteni ezeket magadnak.
+          </p>
+        </div>
+        <div class="about-tags">
+          <span class="about-tag">Programozó</span>
+          <span class="about-tag">Digitális illusztrátor</span>
+          <span class="about-tag">Két kisgyerek anyukája</span>
+          <span class="about-tag">DIY projektek</span>
+        </div>
+      </div>
+      <div class="about-photo">
+        <img src="reni-with-merlin-winter.jpeg" alt="Reni a kutyájával, Merlinnel" />
+      </div>
+    </div>
   </section>
 
   <!-- PROJECTS -->
