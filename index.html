@@ -99,8 +99,62 @@
       border-right: 1px solid var(--border);
     }
 
-    .hero-left .tiktok-embed {
-      margin: 0 !important;
+    .tiktok-facade {
+      position: relative;
+      width: 325px;
+      max-width: 100%;
+      aspect-ratio: 9 / 16;
+      cursor: pointer;
+      overflow: hidden;
+      background: #111;
+    }
+
+    .tiktok-facade img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: opacity 0.2s;
+    }
+
+    .tiktok-facade:hover img {
+      opacity: 0.82;
+    }
+
+    .tiktok-play-btn {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 62px;
+      height: 62px;
+      background: rgba(255, 255, 255, 0.92);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      pointer-events: none;
+      transition: transform 0.2s, background 0.2s;
+    }
+
+    .tiktok-facade:hover .tiktok-play-btn {
+      transform: translate(-50%, -50%) scale(1.08);
+      background: #fff;
+    }
+
+    .tiktok-play-icon {
+      width: 0;
+      height: 0;
+      border-top: 12px solid transparent;
+      border-bottom: 12px solid transparent;
+      border-left: 20px solid #1a1a1a;
+      margin-left: 4px;
+    }
+
+    .tiktok-facade iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
     }
 
     .hero-right {
@@ -427,19 +481,12 @@
   <!-- HERO -->
   <section class="hero">
     <div class="hero-left">
-      <blockquote class="tiktok-embed" cite="https://www.tiktok.com/@bondarreni/video/7650158337044090134" data-video-id="7650158337044090134" style="max-width: 605px;min-width: 325px;">
-        <section>
-          <a target="_blank" title="@bondarreni" href="https://www.tiktok.com/@bondarreni?refer=embed">@bondarreni</a>
-          Beszélő mesekönyv ♥️📖 Készítettem egy mesekönyvet, ami a nagymamám hangján olvassa fel a gyerekeimnek az esti mesét 🥰 Imádtam ezt a projektet, és nagyon jól esett, hogy ennyien írtatok és követtétek végig az elkészítését ♥️ Rengeteg ötletem van még, úgyhogy ha szeretnétek hasonló DIY projekteket látni tőlem, maradjatok velem! 😍♥️ Ha pedig bármi kérdésetek van az elkészítésével, az elektronikával, az alkatrészekkel vagy bármelyik részével kapcsolatban, nyugodtan írjatok 💌
-          <a title="momtok" target="_blank" href="https://www.tiktok.com/tag/momtok?refer=embed">#momtok</a>
-          <a title="digitalart" target="_blank" href="https://www.tiktok.com/tag/digitalart?refer=embed">#digitalart</a>
-          <a title="diy" target="_blank" href="https://www.tiktok.com/tag/diy?refer=embed">#diy</a>
-          <a title="diygift" target="_blank" href="https://www.tiktok.com/tag/diygift?refer=embed">#diygift</a>
-          <a title="electronics" target="_blank" href="https://www.tiktok.com/tag/electronics?refer=embed">#electronics</a>
-          <a target="_blank" title="♬ Shallow (Piano Version) - The Chillest" href="https://www.tiktok.com/music/Shallow-Piano-Version-6814427833687869441?refer=embed">♬ Shallow (Piano Version) - The Chillest</a>
-        </section>
-      </blockquote>
-      <script async src="https://www.tiktok.com/embed.js"></script>
+      <div class="tiktok-facade" id="tiktokFacade">
+        <img id="tiktokThumb" src="" alt="Bondár Reni TikTok videó" />
+        <div class="tiktok-play-btn">
+          <div class="tiktok-play-icon"></div>
+        </div>
+      </div>
     </div>
 
     <div class="hero-right" id="feliratkozas">
@@ -515,6 +562,30 @@
   </footer>
 
   <script>
+    const TIKTOK_VIDEO_ID = '7650158337044090134'
+
+    fetch('https://www.tiktok.com/oembed?url=' + encodeURIComponent('https://www.tiktok.com/@bondarreni/video/' + TIKTOK_VIDEO_ID))
+      .then(r => r.json())
+      .then(data => {
+        if (data.thumbnail_url) {
+          document.getElementById('tiktokThumb').src = data.thumbnail_url
+        }
+      })
+      .catch(() => {})
+
+    document.getElementById('tiktokFacade').addEventListener('click', () => {
+      const facade = document.getElementById('tiktokFacade')
+      const iframe = document.createElement('iframe')
+      iframe.src = 'https://www.tiktok.com/embed/v2/' + TIKTOK_VIDEO_ID + '?autoplay=1'
+      iframe.style.width = '325px'
+      iframe.style.maxWidth = '100%'
+      iframe.style.height = '100%'
+      iframe.style.border = 'none'
+      iframe.allow = 'autoplay; fullscreen; picture-in-picture'
+      iframe.allowFullscreen = true
+      facade.parentNode.replaceChild(iframe, facade)
+    })
+
     let turnstileToken = null
     let turnstileWidgetId = null
     let pendingSubmit = false
