@@ -425,60 +425,165 @@
       background: #fff;
     }
 
-    /* PROJECTS */
-    .projects {
+    /* GALLERY */
+    .gallery {
       border-top: 1px solid var(--border);
       padding: 8rem 2rem;
       text-align: center;
     }
 
-    .projects-inner {
-      max-width: 900px;
+    .gallery-inner {
+      max-width: 1200px;
       margin: 0 auto;
     }
 
-    .projects h2 {
+    .gallery h2 {
       font-family: 'Cormorant Garamond', serif;
       font-size: clamp(2rem, 5vw, 3rem);
       font-weight: 300;
-      margin-bottom: 1rem;
+      margin-bottom: 0.5rem;
     }
 
-    .projects-sub {
-      font-size: 0.9rem;
-      color: var(--ink-light);
-      margin-bottom: 4rem;
+    .gallery-filter {
+      display: flex;
+      gap: 0.4rem;
+      justify-content: center;
+      margin: 2.5rem 0 1.5rem;
+      flex-wrap: wrap;
     }
 
-    .cards {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 2px;
-    }
-
-    .card {
-      background: #fff;
-      padding: 2.5rem 2rem;
-      text-align: left;
+    .filter-btn {
+      padding: 0.55rem 1.5rem;
+      background: transparent;
       border: 1px solid var(--border);
-    }
-
-    .card-icon {
-      font-size: 1.6rem;
-      margin-bottom: 1.2rem;
-    }
-
-    .card-title {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.25rem;
-      font-weight: 400;
-      margin-bottom: 0.6rem;
-    }
-
-    .card-desc {
-      font-size: 0.82rem;
       color: var(--ink-light);
-      line-height: 1.75;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.72rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: background 0.2s, border-color 0.2s, color 0.2s;
+    }
+
+    .filter-btn:hover {
+      border-color: var(--ink);
+      color: var(--ink);
+    }
+
+    .filter-btn.active {
+      background: var(--ink);
+      border-color: var(--ink);
+      color: var(--paper);
+    }
+
+    .gallery-desc-text {
+      font-size: 0.88rem;
+      color: var(--ink-light);
+      max-width: 52ch;
+      margin: 0 auto 3rem;
+      line-height: 1.85;
+      min-height: 3.5em;
+    }
+
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 4px;
+    }
+
+    .gallery-item {
+      overflow: hidden;
+      cursor: zoom-in;
+      background: #f0ede8;
+      aspect-ratio: 9 / 12;
+    }
+
+    .gallery-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.45s ease, opacity 0.2s;
+    }
+
+    .gallery-item:hover img {
+      transform: scale(1.05);
+      opacity: 0.9;
+    }
+
+    .gallery-item.hidden {
+      display: none;
+    }
+
+    /* LIGHTBOX */
+    .lightbox {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 500;
+      background: rgba(8, 8, 8, 0.93);
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+    }
+
+    .lightbox.open {
+      display: flex;
+    }
+
+    .lightbox img {
+      max-width: min(90vw, 640px);
+      max-height: 90vh;
+      object-fit: contain;
+      display: block;
+    }
+
+    .lightbox-close {
+      position: absolute;
+      top: 1.2rem;
+      right: 1.5rem;
+      background: none;
+      border: none;
+      color: rgba(255, 255, 255, 0.55);
+      font-size: 1.8rem;
+      line-height: 1;
+      cursor: pointer;
+      padding: 0.4rem;
+      transition: color 0.15s;
+      font-weight: 300;
+    }
+
+    .lightbox-close:hover {
+      color: #fff;
+    }
+
+    .lightbox-nav {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      color: rgba(255, 255, 255, 0.4);
+      cursor: pointer;
+      padding: 1rem 1.2rem;
+      transition: color 0.15s;
+      line-height: 0;
+      z-index: 1;
+    }
+
+    .lightbox-nav:hover {
+      color: rgba(255, 255, 255, 0.95);
+    }
+
+    .lightbox-prev { left: 0.5rem; }
+    .lightbox-next { right: 0.5rem; }
+
+    #lightboxImg {
+      transition: opacity 0.18s ease;
+    }
+
+    #lightboxImg.fading {
+      opacity: 0;
     }
 
     /* FOOTER */
@@ -553,6 +658,11 @@
 
       .about-photo img {
         aspect-ratio: 4 / 3;
+      }
+
+      .gallery-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 3px;
       }
     }
   </style>
@@ -638,31 +748,59 @@
     </div>
   </section>
 
-  <!-- PROJECTS -->
-  <section class="projects">
-    <div class="projects-inner">
-      <p class="section-label">Amivel foglalkozom</p>
-      <h2>Projektek &amp; alkotások</h2>
-      <p class="projects-sub">Könyvek, tartalmak és különleges együttműködések</p>
-      <div class="cards">
-        <div class="card">
-          <div class="card-icon">📖</div>
-          <h3 class="card-title">Gyerekkönyvek</h3>
-          <p class="card-desc">Mesélő könyvek kicsiknek és nagyoknak — élénk képzeletvilággal, értékes üzenetekkel.</p>
-        </div>
-        <div class="card">
-          <div class="card-icon">✨</div>
-          <h3 class="card-title">Különleges projektek</h3>
-          <p class="card-desc">Exkluzív kiadványok, interaktív tartalmak és meglepetés kollaborációk.</p>
-        </div>
-        <div class="card">
-          <div class="card-icon">🎬</div>
-          <h3 class="card-title">TikTok</h3>
-          <p class="card-desc">Napi adag kreativitás, kulisszák mögötti pillanatok és közösségi élmények.</p>
-        </div>
+  <!-- GALLERY -->
+  <section class="gallery" id="rajzaim">
+    <div class="gallery-inner">
+      <p class="section-label">Rajzaim</p>
+      <h2>Digitális illusztrációk</h2>
+
+      <div class="gallery-filter">
+        <button class="filter-btn active" data-filter="all">Összes</button>
+        <button class="filter-btn" data-filter="plush">Plüss</button>
+        <button class="filter-btn" data-filter="pets">Háziállatok</button>
+      </div>
+
+      <p class="gallery-desc-text" id="galleryDesc">
+        Digitálisan rajzolom mindazt, ami a legjobban számít — a gyerekeim kedvencei és a háziállataink.
+      </p>
+
+      <div class="gallery-grid" id="galleryGrid">
+        <div class="gallery-item" data-category="plush"><img src="assets/drawings/plush/bear.webp" loading="lazy" alt="Maci" /></div>
+        <div class="gallery-item" data-category="plush"><img src="assets/drawings/plush/berrybear.webp" loading="lazy" alt="Berry Bear" /></div>
+        <div class="gallery-item" data-category="plush"><img src="assets/drawings/plush/bobo.webp" loading="lazy" alt="Bobo" /></div>
+        <div class="gallery-item" data-category="plush"><img src="assets/drawings/plush/boribon.webp" loading="lazy" alt="Boribon" /></div>
+        <div class="gallery-item" data-category="plush"><img src="assets/drawings/plush/bunny.webp" loading="lazy" alt="Nyuszi" /></div>
+        <div class="gallery-item" data-category="plush"><img src="assets/drawings/plush/bunny2.webp" loading="lazy" alt="Nyuszi 2" /></div>
+        <div class="gallery-item" data-category="plush"><img src="assets/drawings/plush/bunny3.webp" loading="lazy" alt="Nyuszi 3" /></div>
+        <div class="gallery-item" data-category="plush"><img src="assets/drawings/plush/bunny4.webp" loading="lazy" alt="Nyuszi 4" /></div>
+        <div class="gallery-item" data-category="plush"><img src="assets/drawings/plush/bunny5.webp" loading="lazy" alt="Nyuszi 5" /></div>
+        <div class="gallery-item" data-category="plush"><img src="assets/drawings/plush/chick.webp" loading="lazy" alt="Kiscsibe" /></div>
+        <div class="gallery-item" data-category="plush"><img src="assets/drawings/plush/doll1.webp" loading="lazy" alt="Baba" /></div>
+        <div class="gallery-item" data-category="plush"><img src="assets/drawings/plush/doll2.webp" loading="lazy" alt="Baba 2" /></div>
+        <div class="gallery-item" data-category="plush"><img src="assets/drawings/plush/elephant.webp" loading="lazy" alt="Elefánt" /></div>
+        <div class="gallery-item" data-category="plush"><img src="assets/drawings/plush/elephant2.webp" loading="lazy" alt="Elefánt 2" /></div>
+        <div class="gallery-item" data-category="plush"><img src="assets/drawings/plush/elephantsheep.webp" loading="lazy" alt="Elefánt-bárány" /></div>
+        <div class="gallery-item" data-category="plush"><img src="assets/drawings/plush/nyuszika.webp" loading="lazy" alt="Nyuszika" /></div>
+        <div class="gallery-item" data-category="plush"><img src="assets/drawings/plush/octopus.webp" loading="lazy" alt="Polip" /></div>
+        <div class="gallery-item" data-category="plush"><img src="assets/drawings/plush/sheep.webp" loading="lazy" alt="Bárány" /></div>
+        <div class="gallery-item" data-category="pets"><img src="assets/drawings/pets/merlin1.webp" loading="lazy" alt="Merlin" /></div>
+        <div class="gallery-item" data-category="pets"><img src="assets/drawings/pets/merlin2.webp" loading="lazy" alt="Merlin 2" /></div>
+        <div class="gallery-item" data-category="pets"><img src="assets/drawings/pets/pegi.webp" loading="lazy" alt="Pegi" /></div>
       </div>
     </div>
   </section>
+
+  <!-- LIGHTBOX -->
+  <div class="lightbox" id="lightbox">
+    <button class="lightbox-close" id="lightboxClose">&times;</button>
+    <button class="lightbox-nav lightbox-prev" id="lightboxPrev">
+      <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M18 4L8 14L18 24" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </button>
+    <img id="lightboxImg" src="" alt="" />
+    <button class="lightbox-nav lightbox-next" id="lightboxNext">
+      <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M10 4L20 14L10 24" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </button>
+  </div>
 
   <!-- FOOTER -->
   <footer>
@@ -834,6 +972,87 @@
       inputs.forEach(input => { if (input) input.style.display = 'block' })
       submitButton.style.display = 'block'
     }
+
+    // GALLERY FILTER
+    const galleryDescs = {
+      all: 'Digitálisan rajzolom mindazt, ami a legjobban számít — a gyerekeim kedvencei és a háziállataink.',
+      plush: 'Meg akartam örökíteni a gyerekeim kedvenc plüssállatait — minden rajzon egy kicsit belőlük is van.',
+      pets: 'A háziállataim a legjobb barátaim. Ezek a rajzok azért készültek, hogy örökké emlékezzem rájuk.'
+    }
+
+    document.querySelectorAll('.filter-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'))
+        btn.classList.add('active')
+        const filter = btn.dataset.filter
+        document.getElementById('galleryDesc').textContent = galleryDescs[filter]
+        document.querySelectorAll('.gallery-item').forEach(item => {
+          item.classList.toggle('hidden', filter !== 'all' && item.dataset.category !== filter)
+        })
+      })
+    })
+
+    // LIGHTBOX
+    const lightbox = document.getElementById('lightbox')
+    const lightboxImg = document.getElementById('lightboxImg')
+    let lbItems = []
+    let lbIndex = 0
+    let touchStartX = 0
+
+    function getVisibleImgs() {
+      return Array.from(document.querySelectorAll('.gallery-item:not(.hidden) img'))
+    }
+
+    function showLightboxImg(img) {
+      lightboxImg.classList.add('fading')
+      setTimeout(() => {
+        lightboxImg.src = img.src
+        lightboxImg.alt = img.alt
+        lightboxImg.classList.remove('fading')
+      }, 160)
+    }
+
+    function lbNavigate(dir) {
+      lbIndex = (lbIndex + dir + lbItems.length) % lbItems.length
+      showLightboxImg(lbItems[lbIndex])
+    }
+
+    function openLightbox(img) {
+      lbItems = getVisibleImgs()
+      lbIndex = lbItems.indexOf(img)
+      lightboxImg.src = img.src
+      lightboxImg.alt = img.alt
+      lightbox.classList.add('open')
+      document.body.style.overflow = 'hidden'
+    }
+
+    function closeLightbox() {
+      lightbox.classList.remove('open')
+      document.body.style.overflow = ''
+    }
+
+    document.querySelectorAll('.gallery-item img').forEach(img => {
+      img.addEventListener('click', () => openLightbox(img))
+    })
+
+    document.getElementById('lightboxClose').addEventListener('click', closeLightbox)
+    document.getElementById('lightboxPrev').addEventListener('click', e => { e.stopPropagation(); lbNavigate(-1) })
+    document.getElementById('lightboxNext').addEventListener('click', e => { e.stopPropagation(); lbNavigate(1) })
+
+    lightbox.addEventListener('click', e => { if (e.target === lightbox) closeLightbox() })
+
+    document.addEventListener('keydown', e => {
+      if (!lightbox.classList.contains('open')) return
+      if (e.key === 'Escape') closeLightbox()
+      if (e.key === 'ArrowLeft') lbNavigate(-1)
+      if (e.key === 'ArrowRight') lbNavigate(1)
+    })
+
+    lightbox.addEventListener('touchstart', e => { touchStartX = e.touches[0].clientX }, { passive: true })
+    lightbox.addEventListener('touchend', e => {
+      const dx = e.changedTouches[0].clientX - touchStartX
+      if (Math.abs(dx) > 40) lbNavigate(dx < 0 ? 1 : -1)
+    })
 
     const signupForm = document.getElementById('signupForm')
     const backButton = document.getElementById('backBtn')
