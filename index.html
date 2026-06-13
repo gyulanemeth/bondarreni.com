@@ -64,6 +64,12 @@
       border-bottom: 1px solid var(--border);
     }
 
+    .nav-links-right {
+      display: flex;
+      gap: 2rem;
+      align-items: center;
+    }
+
     .nav-name {
       font-family: 'Cormorant Garamond', serif;
       font-size: 1.2rem;
@@ -586,6 +592,86 @@
       opacity: 0;
     }
 
+    /* BOOK POLAROIDS */
+    .hero-right-inner {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      gap: 2rem;
+      width: 100%;
+    }
+
+    .hero-right-content {
+      flex: 1;
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .polaroid-col {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      flex-shrink: 0;
+      padding: 1rem 0.5rem;
+    }
+
+    .polaroid {
+      background: #fff;
+      padding: 8px 8px 22px;
+      box-shadow: 2px 5px 14px rgba(0,0,0,0.13);
+      cursor: zoom-in;
+      position: relative;
+      z-index: 1;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .polaroid:nth-child(1) { transform: rotate(-3.5deg); }
+    .polaroid:nth-child(2) { transform: rotate(2deg); }
+    .polaroid:nth-child(3) { transform: rotate(-2deg); }
+    .polaroid:nth-child(4) { transform: rotate(3.5deg); }
+
+    .polaroid:hover {
+      transform: rotate(0deg) scale(1.1) translateY(-6px);
+      box-shadow: 4px 12px 30px rgba(0,0,0,0.22);
+      z-index: 10;
+    }
+
+    .polaroid img {
+      width: 110px;
+      height: 135px;
+      object-fit: cover;
+      display: block;
+    }
+
+    /* BOOK LIGHTBOX */
+    .book-lightbox {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 500;
+      background: rgba(8, 8, 8, 0.93);
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+    }
+
+    .book-lightbox.open {
+      display: flex;
+    }
+
+    .book-lightbox img {
+      max-width: min(90vw, 720px);
+      max-height: 90vh;
+      object-fit: contain;
+      display: block;
+      transition: opacity 0.18s ease;
+    }
+
+    .book-lightbox img.fading {
+      opacity: 0;
+    }
+
     /* FOOTER */
     footer {
       border-top: 1px solid var(--border);
@@ -641,6 +727,25 @@
         max-width: 100%;
       }
 
+      .hero-right-inner {
+        flex-direction: column;
+      }
+
+      .polaroid-col {
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 1.2rem;
+        padding: 0.5rem;
+      }
+
+      .polaroid:nth-child(1),
+      .polaroid:nth-child(2),
+      .polaroid:nth-child(3),
+      .polaroid:nth-child(4) {
+        transform: rotate(0deg);
+      }
+
       .about, .projects, footer {
         padding-left: 1.5rem;
         padding-right: 1.5rem;
@@ -672,7 +777,11 @@
   <!-- NAV -->
   <nav>
     <a href="#" class="nav-name">Bondár Reni</a>
-    <a href="#rolam" class="nav-link">Rólam</a>
+    <div class="nav-links-right">
+      <a href="#feliratkozas" class="nav-link">Könyv</a>
+      <a href="#rolam" class="nav-link">Rólam</a>
+      <a href="#rajzaim" class="nav-link">Rajzaim</a>
+    </div>
   </nav>
 
   <!-- HERO -->
@@ -687,29 +796,48 @@
     </div>
 
     <div class="hero-right" id="feliratkozas">
-      <p class="hero-eyebrow">Aktuális fő projekt</p>
-      <h1 class="hero-title">A könyv most<br><em>minden.</em></h1>
-      <div class="hero-divider"></div>
-      <p class="hero-desc">
-        Ez a mostani fő projektem — de a kulisszák mögött rengeteg más ötlet is van folyamatban. Iratkozz fel, hogy elsőként lásd a behind the scenes tartalmakat, és értesülj minden product updateről.
-      </p>
+      <div class="hero-right-inner">
+        <div class="hero-right-content">
+          <p class="hero-eyebrow">Aktuális fő projekt</p>
+          <h1 class="hero-title">A könyv most<br><em>minden.</em></h1>
+          <div class="hero-divider"></div>
+          <p class="hero-desc">
+            Ez a mostani fő projektem — de a kulisszák mögött rengeteg más ötlet is van folyamatban. Iratkozz fel, hogy elsőként lásd a behind the scenes tartalmakat, és értesülj minden product updateről.
+          </p>
 
-      <div class="hero-form-wrap">
-        <span class="hero-form-label">Iratkozz fel ingyen</span>
-        <form id="signupForm" action="https://api.bluefox.email/v1/signup-forms/6a2c64c64dbba21160210763" method="POST">
-          <input class="formInput" type="email" name="email" placeholder="E-mail címed" required />
-          <div id="captchaContainer">
-            <div id="turnstileWidget"></div>
+          <div class="hero-form-wrap">
+            <span class="hero-form-label">Iratkozz fel ingyen</span>
+            <form id="signupForm" action="https://api.bluefox.email/v1/signup-forms/6a2c64c64dbba21160210763" method="POST">
+              <input class="formInput" type="email" name="email" placeholder="E-mail címed" required />
+              <div id="captchaContainer">
+                <div id="turnstileWidget"></div>
+              </div>
+              <button id="submitBtn" type="submit">Feliratkozom</button>
+              <button id="loadingBtn" type="button">Kérlek várj...</button>
+            </form>
+
+            <p id="successMessageText">Köszönöm! Hamarosan hallasz rólam. ✦</p>
+            <p id="errorMessageText"></p>
+            <button id="backBtn" type="button">Vissza</button>
+
+            <p class="signup-note">Adataidat biztonságban kezeljük. Leiratkozhatsz bármikor.</p>
           </div>
-          <button id="submitBtn" type="submit">Feliratkozom</button>
-          <button id="loadingBtn" type="button">Kérlek várj...</button>
-        </form>
+        </div>
 
-        <p id="successMessageText">Köszönöm! Hamarosan hallasz rólam. ✦</p>
-        <p id="errorMessageText"></p>
-        <button id="backBtn" type="button">Vissza</button>
-
-        <p class="signup-note">Adataidat biztonságban kezeljük. Leiratkozhatsz bármikor.</p>
+        <div class="polaroid-col">
+          <div class="polaroid" title="A kis gidó – 1. kép">
+            <img src="assets/books/a-kis-gido/book1.webp" alt="A kis gidó – 1. kép" />
+          </div>
+          <div class="polaroid" title="A kis gidó – 2. kép">
+            <img src="assets/books/a-kis-gido/book2.webp" alt="A kis gidó – 2. kép" />
+          </div>
+          <div class="polaroid" title="A kis gidó – 3. kép">
+            <img src="assets/books/a-kis-gido/book3.webp" alt="A kis gidó – 3. kép" />
+          </div>
+          <div class="polaroid" title="A kis gidó – 4. kép">
+            <img src="assets/books/a-kis-gido/book4.webp" alt="A kis gidó – 4. kép" />
+          </div>
+        </div>
       </div>
     </div>
   </section>
@@ -798,6 +926,18 @@
     </button>
     <img id="lightboxImg" src="" alt="" />
     <button class="lightbox-nav lightbox-next" id="lightboxNext">
+      <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M10 4L20 14L10 24" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </button>
+  </div>
+
+  <!-- BOOK LIGHTBOX -->
+  <div class="book-lightbox" id="bookLightbox">
+    <button class="lightbox-close" id="bookLightboxClose">&times;</button>
+    <button class="lightbox-nav lightbox-prev" id="bookLightboxPrev">
+      <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M18 4L8 14L18 24" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </button>
+    <img id="bookLightboxImg" src="" alt="" />
+    <button class="lightbox-nav lightbox-next" id="bookLightboxNext">
       <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M10 4L20 14L10 24" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
     </button>
   </div>
@@ -992,7 +1132,7 @@
       })
     })
 
-    // LIGHTBOX
+    // LIGHTBOX (gallery)
     const lightbox = document.getElementById('lightbox')
     const lightboxImg = document.getElementById('lightboxImg')
     let lbItems = []
@@ -1052,6 +1192,64 @@
     lightbox.addEventListener('touchend', e => {
       const dx = e.changedTouches[0].clientX - touchStartX
       if (Math.abs(dx) > 40) lbNavigate(dx < 0 ? 1 : -1)
+    })
+
+    // BOOK LIGHTBOX
+    const bookLightbox = document.getElementById('bookLightbox')
+    const bookLightboxImg = document.getElementById('bookLightboxImg')
+    const bookImages = [
+      { src: 'assets/books/a-kis-gido/book1.webp', alt: 'A kis gidó – 1. kép' },
+      { src: 'assets/books/a-kis-gido/book2.webp', alt: 'A kis gidó – 2. kép' },
+      { src: 'assets/books/a-kis-gido/book3.webp', alt: 'A kis gidó – 3. kép' },
+      { src: 'assets/books/a-kis-gido/book4.webp', alt: 'A kis gidó – 4. kép' },
+    ]
+    let blIndex = 0
+    let blTouchStartX = 0
+
+    function showBookLightboxAt(index) {
+      blIndex = (index + bookImages.length) % bookImages.length
+      bookLightboxImg.classList.add('fading')
+      setTimeout(() => {
+        bookLightboxImg.src = bookImages[blIndex].src
+        bookLightboxImg.alt = bookImages[blIndex].alt
+        bookLightboxImg.classList.remove('fading')
+      }, 160)
+    }
+
+    function openBookLightbox(index) {
+      blIndex = index
+      bookLightboxImg.src = bookImages[blIndex].src
+      bookLightboxImg.alt = bookImages[blIndex].alt
+      bookLightbox.classList.add('open')
+      document.body.style.overflow = 'hidden'
+    }
+
+    function closeBookLightbox() {
+      bookLightbox.classList.remove('open')
+      document.body.style.overflow = ''
+    }
+
+    document.querySelectorAll('.polaroid').forEach((polaroid, i) => {
+      polaroid.addEventListener('click', () => openBookLightbox(i))
+    })
+
+    document.getElementById('bookLightboxClose').addEventListener('click', closeBookLightbox)
+    document.getElementById('bookLightboxPrev').addEventListener('click', e => { e.stopPropagation(); showBookLightboxAt(blIndex - 1) })
+    document.getElementById('bookLightboxNext').addEventListener('click', e => { e.stopPropagation(); showBookLightboxAt(blIndex + 1) })
+
+    bookLightbox.addEventListener('click', e => { if (e.target === bookLightbox) closeBookLightbox() })
+
+    document.addEventListener('keydown', e => {
+      if (!bookLightbox.classList.contains('open')) return
+      if (e.key === 'Escape') closeBookLightbox()
+      if (e.key === 'ArrowLeft') showBookLightboxAt(blIndex - 1)
+      if (e.key === 'ArrowRight') showBookLightboxAt(blIndex + 1)
+    })
+
+    bookLightbox.addEventListener('touchstart', e => { blTouchStartX = e.touches[0].clientX }, { passive: true })
+    bookLightbox.addEventListener('touchend', e => {
+      const dx = e.changedTouches[0].clientX - blTouchStartX
+      if (Math.abs(dx) > 40) showBookLightboxAt(blIndex + (dx < 0 ? 1 : -1))
     })
 
     const signupForm = document.getElementById('signupForm')
