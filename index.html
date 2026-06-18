@@ -70,6 +70,32 @@
       align-items: center;
     }
 
+    .nav-links-right-hamburger {
+      display: none;
+    }
+
+    .hamburger-menu {
+      display: none;
+    }
+    
+    .hamburger-menu img {
+      height: 25px;
+    }
+
+    @media (max-width: 768px) {
+      .nav-links-right {
+        display: none;
+      }
+      .nav-links-right-hamburger {
+        display: flex;
+        gap: 2rem;
+        align-items: center;
+      }
+      .hamburger-menu {
+        display: flex;
+    }
+    }
+
     .nav-name {
       font-family: 'Cormorant Garamond', serif;
       font-size: 1.2rem;
@@ -105,6 +131,9 @@
       align-items: center;
       justify-content: center;
       background: #f0ede8;
+      background-image: url("assets/books/a-kis-gido/a-kis-gido-1.webp");
+      background-position: right;
+      background-size: cover;
       padding: 4rem 3rem;
       border-right: 1px solid var(--border);
     }
@@ -171,7 +200,7 @@
       display: flex;
       flex-direction: column;
       justify-content: center;
-      padding: 4rem 3rem;
+      padding: 0 3rem;
     }
 
     .hero-eyebrow {
@@ -697,6 +726,17 @@
       transition: color 0.2s;
     }
 
+    .tiktok-link {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .tiktok-logo {
+      height: 25px;
+      margin-right: 5px;
+    }
+
     .social-link:hover {
       color: var(--ink);
     }
@@ -778,17 +818,25 @@
   <nav>
     <a href="#" class="nav-name">Bondár Reni</a>
     <div class="nav-links-right">
-      <a href="#feliratkozas" class="nav-link">Könyv</a>
+      <a href="#" class="nav-link">Beszélő könyv</a>
+      <a href="#rajzaim" class="nav-link">Rajzok</a>
       <a href="#rolam" class="nav-link">Rólam</a>
-      <a href="#rajzaim" class="nav-link">Rajzaim</a>
     </div>
+    <!--
+    <a class="hamburger-menu" onclick="showHamburger()">
+      <img
+        src="assets/hamburger-menu.svg"
+        alt="Hamburger menu"
+      />
+    </a>
+    -->
   </nav>
 
   <!-- HERO -->
   <section class="hero">
     <div class="hero-left">
       <div class="tiktok-facade" id="tiktokFacade">
-        <img id="tiktokThumb" src="" alt="Bondár Reni TikTok videó" />
+        <img id="tiktokThumb" src="" alt="Beszélő könyv TikTok videó" />
         <div class="tiktok-play-btn">
           <div class="tiktok-play-icon"></div>
         </div>
@@ -798,17 +846,17 @@
     <div class="hero-right" id="feliratkozas">
       <div class="hero-right-inner">
         <div class="hero-right-content">
-          <p class="hero-eyebrow">Aktuális fő projekt</p>
-          <h1 class="hero-title">A könyv most<br><em>minden.</em></h1>
+          <p class="hero-eyebrow">Beszélő mesekönyv</p>
+          <h1 class="hero-title">Őrizd meg a szeretteid hangját egy <br><em>mesekönyvben.</em></h1>
           <div class="hero-divider"></div>
           <p class="hero-desc">
-            Ez a mostani fő projektem — de a kulisszák mögött rengeteg más ötlet is van folyamatban. Iratkozz fel, hogy elsőként lásd a behind the scenes tartalmakat, és értesülj minden product updateről.
+            Egyedi, kézzel rajzolt mesekönyv, ami a szeretteid hangján szólal meg, hogy a legkedvesebb történetek és emlékek örökké veled maradhassanak. 🤍 
           </p>
 
           <div class="hero-form-wrap">
-            <span class="hero-form-label">Iratkozz fel ingyen</span>
+            <span class="hero-form-label">Szeretnék egy saját mesekönyvet</span>
             <form id="signupForm" action="https://api.bluefox.email/v1/signup-forms/6a2c64c64dbba21160210763" method="POST">
-              <input class="formInput" type="email" name="email" placeholder="E-mail címed" required />
+              <input class="formInput" type="email" name="email" placeholder="E-mail cím" required />
               <div id="captchaContainer">
                 <div id="turnstileWidget"></div>
               </div>
@@ -820,7 +868,7 @@
             <p id="errorMessageText"></p>
             <button id="backBtn" type="button">Vissza</button>
 
-            <p class="signup-note">Adataidat biztonságban kezeljük. Leiratkozhatsz bármikor.</p>
+            <p class="signup-note">Az adataidat biztonságosan kezelem. Bármikor leiratkozhatsz.</p>
           </div>
         </div>
 
@@ -842,78 +890,75 @@
     </div>
   </section>
 
-  <!-- ABOUT -->
-  <section class="about" id="rolam">
-    <div class="about-inner">
-      <div class="about-content">
-        <p class="section-label">Rólam</p>
-        <p class="about-text">
-          Programozó vagyok, két pici gyerek anyukája —<br>
-          és közben <em>rajzolok</em>, tervezek, alkotok.
-        </p>
-        <div class="hero-divider"></div>
-        <div class="about-body">
-          <p>
-            A kisfiúm 2,5 éves, a kislányom 1 éves. Nincs sok szabad időm — de amit van, azt kreatív projektekkel töltöm. Imádok digitálisan rajzolni, és egyre több ötletem van, amit szeretnék megvalósítani.
-          </p>
-          <p>
-            Elkezdtem TikTokon közzétenni a projektjeimet, és ott kaptam az első igazán fontos visszajelzést: sokan mondták, hogy ők is megcsinálnák, ha tudnák hogyan — mások azt, hogy érdemes lenne ezekből termékeket csinálni. Ebbe a fába vágtam a fejszémet.
-          </p>
-          <p>
-            Próbálok termékeket csinálni — remélem, tetszik mindenkinek. Ha feliratkozol, elsők között értesülsz, mikor jelenik meg valami új, mikor tudok custom projektet bevállalni, és lesznek olyan tartalmak is, ahol megmutatom, hogyan tudod te is elkészíteni ezeket magadnak.
-          </p>
-        </div>
-        <div class="about-tags">
-          <span class="about-tag">Programozó</span>
-          <span class="about-tag">Digitális illusztrátor</span>
-          <span class="about-tag">Két kisgyerek anyukája</span>
-          <span class="about-tag">DIY projektek</span>
-        </div>
-      </div>
-      <div class="about-photo">
-        <img src="reni-with-merlin-winter.jpeg" alt="Reni a kutyájával, Merlinnel" />
-      </div>
-    </div>
-  </section>
-
   <!-- GALLERY -->
   <section class="gallery" id="rajzaim">
     <div class="gallery-inner">
       <p class="section-label">Rajzaim</p>
-      <h2>Digitális illusztrációk</h2>
+      <!--<h2>Rajzaim</h2>-->
 
       <div class="gallery-filter">
         <button class="filter-btn active" data-filter="all">Összes</button>
-        <button class="filter-btn" data-filter="plush">Plüss</button>
+        <button class="filter-btn" data-filter="plush">Plüssök</button>
         <button class="filter-btn" data-filter="pets">Háziállatok</button>
       </div>
 
       <p class="gallery-desc-text" id="galleryDesc">
-        Digitálisan rajzolom mindazt, ami a legjobban számít — a gyerekeim kedvencei és a háziállataink.
+        Emlékek megőrzése rajz formában. Minden illusztráció egyedileg, kézzel készül, szeretettel. 🤍
       </p>
 
       <div class="gallery-grid" id="galleryGrid">
-        <div class="gallery-item" data-category="plush"><img src="assets/drawings/plush/bear.webp" loading="lazy" alt="Maci" /></div>
-        <div class="gallery-item" data-category="plush"><img src="assets/drawings/plush/berrybear.webp" loading="lazy" alt="Berry Bear" /></div>
         <div class="gallery-item" data-category="plush"><img src="assets/drawings/plush/bobo.webp" loading="lazy" alt="Bobo" /></div>
+        <div class="gallery-item" data-category="plush"><img src="assets/drawings/plush/doll1.webp" loading="lazy" alt="Baba" /></div>
         <div class="gallery-item" data-category="plush"><img src="assets/drawings/plush/boribon.webp" loading="lazy" alt="Boribon" /></div>
+        <div class="gallery-item" data-category="plush"><img src="assets/drawings/plush/bunny5.webp" loading="lazy" alt="Nyuszi 5" /></div>
+        <div class="gallery-item" data-category="plush"><img src="assets/drawings/plush/bear.webp" loading="lazy" alt="Maci" /></div>
+        <div class="gallery-item" data-category="plush"><img src="assets/drawings/plush/sheep.webp" loading="lazy" alt="Bárány" /></div>
+        <div class="gallery-item" data-category="plush"><img src="assets/drawings/plush/berrybear.webp" loading="lazy" alt="Berry Bear" /></div>
         <div class="gallery-item" data-category="plush"><img src="assets/drawings/plush/bunny.webp" loading="lazy" alt="Nyuszi" /></div>
         <div class="gallery-item" data-category="plush"><img src="assets/drawings/plush/bunny2.webp" loading="lazy" alt="Nyuszi 2" /></div>
         <div class="gallery-item" data-category="plush"><img src="assets/drawings/plush/bunny3.webp" loading="lazy" alt="Nyuszi 3" /></div>
         <div class="gallery-item" data-category="plush"><img src="assets/drawings/plush/bunny4.webp" loading="lazy" alt="Nyuszi 4" /></div>
-        <div class="gallery-item" data-category="plush"><img src="assets/drawings/plush/bunny5.webp" loading="lazy" alt="Nyuszi 5" /></div>
         <div class="gallery-item" data-category="plush"><img src="assets/drawings/plush/chick.webp" loading="lazy" alt="Kiscsibe" /></div>
-        <div class="gallery-item" data-category="plush"><img src="assets/drawings/plush/doll1.webp" loading="lazy" alt="Baba" /></div>
         <div class="gallery-item" data-category="plush"><img src="assets/drawings/plush/doll2.webp" loading="lazy" alt="Baba 2" /></div>
         <div class="gallery-item" data-category="plush"><img src="assets/drawings/plush/elephant.webp" loading="lazy" alt="Elefánt" /></div>
         <div class="gallery-item" data-category="plush"><img src="assets/drawings/plush/elephant2.webp" loading="lazy" alt="Elefánt 2" /></div>
         <div class="gallery-item" data-category="plush"><img src="assets/drawings/plush/elephantsheep.webp" loading="lazy" alt="Elefánt-bárány" /></div>
         <div class="gallery-item" data-category="plush"><img src="assets/drawings/plush/nyuszika.webp" loading="lazy" alt="Nyuszika" /></div>
         <div class="gallery-item" data-category="plush"><img src="assets/drawings/plush/octopus.webp" loading="lazy" alt="Polip" /></div>
-        <div class="gallery-item" data-category="plush"><img src="assets/drawings/plush/sheep.webp" loading="lazy" alt="Bárány" /></div>
         <div class="gallery-item" data-category="pets"><img src="assets/drawings/pets/merlin1.webp" loading="lazy" alt="Merlin" /></div>
         <div class="gallery-item" data-category="pets"><img src="assets/drawings/pets/merlin2.webp" loading="lazy" alt="Merlin 2" /></div>
         <div class="gallery-item" data-category="pets"><img src="assets/drawings/pets/pegi.webp" loading="lazy" alt="Pegi" /></div>
+      </div>
+    </div>
+  </section>
+
+    <!-- ABOUT -->
+  <section class="about" id="rolam">
+    <div class="about-inner">
+      <div class="about-content">
+        <p class="section-label">Rólam</p>
+        <p class="about-text">
+          Programozó vagyok, két kisgyerek anyukája —<br>
+          és imádok <em>alkotni</em>.
+        </p>
+        <div class="hero-divider"></div>
+        <div class="about-body">
+          <p>
+            Az egyetemen programozóként végeztem, jelenleg pedig a 2.5 éves kisfiammal és az 1 évves kislányommal vagyok itthon. Nincs sok szabadidőm, de ami van, azt rajzolással, programozással, elektronikai projektekkel töltöm. 
+          </p>
+          <p>
+            TikTokon azért kezdtem videókat készíteni, hogy másoknak is megmutassam, hogyan valósítom meg az ötleteimet. A <b>beszélő mesekönyv</b>ről készült videóm után sokan megkerestek, hogy segítsek nekik megőrizni a szeretteik hangját ebben a formában.
+          </p>
+        </div>
+        <div class="about-tags">
+          <span class="about-tag">Rajzolás</span>
+          <span class="about-tag">Programozás</span>
+          <span class="about-tag">Elektronika</span>
+          <span class="about-tag">DIY projektek</span>
+        </div>
+      </div>
+      <div class="about-photo">
+        <img src="reni-with-merlin-winter.jpeg" alt="Reni a kutyájával, Merlinnel" />
       </div>
     </div>
   </section>
@@ -945,7 +990,14 @@
   <!-- FOOTER -->
   <footer>
     <div class="social-links">
-      <a href="https://www.tiktok.com/@bondarreni" target="_blank" rel="noopener" class="social-link">TikTok</a>
+      <a href="https://www.tiktok.com/@bondarreni" target="_blank" rel="noopener" class="social-link tiktok-link">
+        <img
+          class="tiktok-logo"
+          src="assets/tiktok.svg"
+          alt="TikTok logo"
+        />
+        TikTok
+      </a>
     </div>
     <p class="footer-copy">&copy; 2026 Bondár Reni</p>
   </footer>
@@ -1115,9 +1167,9 @@
 
     // GALLERY FILTER
     const galleryDescs = {
-      all: 'Digitálisan rajzolom mindazt, ami a legjobban számít — a gyerekeim kedvencei és a háziállataink.',
-      plush: 'Meg akartam örökíteni a gyerekeim kedvenc plüssállatait — minden rajzon egy kicsit belőlük is van.',
-      pets: 'A háziállataim a legjobb barátaim. Ezek a rajzok azért készültek, hogy örökké emlékezzem rájuk.'
+      all: 'Emlékek megőrzése rajz formában. Minden illusztráció egyedileg, kézzel készül, szeretettel. 🤍',
+      plush: 'A plüss rajzaimmal segítek megőrizni egy különleges korszak emlékeit - azt az időszakot, amikor a gyerekek mindenhová magukkal viszik a kis barátjukat.',
+      pets: 'A háziállat családtag. Portéimmal a hozzájuk kötődő emlékeket és történeteket őrzöm meg.'
     }
 
     document.querySelectorAll('.filter-btn').forEach(btn => {
@@ -1263,6 +1315,18 @@
       backButton.addEventListener('click', resetFormHandler)
       backButton.classList.add('handlers-added')
     }
+
+
+    /*
+    function showHamburger () {
+      const navLinks = document.getElementById("mobileMenu");
+      if (navLinks.style.display === "flex") {
+        navLinks.style.display = "none";
+      } else {
+        navLinks.style.display = "flex";
+      }
+    }
+    */
   </script>
 
 </body>
